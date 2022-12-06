@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\UserControls\" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\film.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\search.png" />
-    <Resource Include="Images\film.png" />
+    <Folder Include="DataBase\" />
   </ItemGroup>
 
 </Project>
