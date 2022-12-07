@@ -19,20 +19,37 @@ public class MainViewModel : BaseViewModel
     private List<string> _MovieDataBase;
     HttpClient HttpClient = new HttpClient();
 
-    public UniformGrid UniformGrid { get; set; }
     public RelayCommand SearchCommand { get; set; }
 
     public Movie _movie { get; set; }
 
 
 
-    public MainViewModel()
+    public MainViewModel(UniformGrid uniformGrid)
     {
         _MovieDataBase = new List<string>();
         _movie = new Movie();
 
 
         _MovieDataBase = JsonSerializer.Deserialize<List<string>>(File.ReadAllText("../../../DataBase/MovieDataBase.json"))!;
+
+
+
+        foreach (var m in _MovieDataBase)
+        {
+            jsonStr =  HttpClient.GetStringAsync($"http://www.omdbapi.com/?apikey=82bcd4c7&t={m}&plot=full").Result;
+
+            if (!jsonStr.Contains("Error"))
+            {
+                var movie = JsonSerializer.Deserialize<Movie>(jsonStr);
+                var uc = new UserControl_Movie();
+                var ucVm = new UCViewModel();
+                ucVm.Movie = movie;
+                uc.DataContext = ucVm;
+                uniformGrid.Children.Add(uc);
+            }
+        }
+
 
         SearchCommand = new RelayCommand(async (o) =>
         {
@@ -57,7 +74,7 @@ public class MainViewModel : BaseViewModel
 
                 _movie = movie;
 
-                UniformGrid!.Children.Add(uc);
+                uniformGrid!.Children.Add(uc);
 
                 uc.MouseDoubleClick += Uc_MouseDoubleClick;
                 _MovieDataBase!.Add(movie?.Title!);
