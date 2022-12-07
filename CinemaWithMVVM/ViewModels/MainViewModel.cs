@@ -22,6 +22,7 @@ public class MainViewModel : BaseViewModel
 
     public RelayCommand SearchCommand { get; set; }
     public RelayCommand KeyDownCommand { get; set; }
+    public RelayCommand SizeChangedCommand { get; set; }
 
     public Movie _movie { get; set; }
 
@@ -64,6 +65,14 @@ public class MainViewModel : BaseViewModel
             await Search_Film(uniformGrid, o);
         });
 
+        SizeChangedCommand = new RelayCommand((o) =>
+        {
+            var window = o as Window;
+            if (window.Height < 650 || window.Width < 550)
+                uniformGrid.Columns = 1;
+            else
+                uniformGrid.Columns = 2;
+        });
 
     }
 
