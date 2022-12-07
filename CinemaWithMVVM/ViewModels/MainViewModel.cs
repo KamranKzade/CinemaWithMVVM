@@ -16,27 +16,23 @@ namespace CinemaWithMVVM.ViewModels;
 public class MainViewModel : BaseViewModel
 {
     string jsonStr;
-    private List<string> _movieDataBase;
-    HttpClient httpClient = new HttpClient();
+    private List<string> _MovieDataBase;
+    HttpClient HttpClient = new HttpClient();
 
-
-    public UniformGrid uniformGrid { get; set; }
-
-    public Window MyWindow { get; set; }
+    public UniformGrid UniformGrid { get; set; }
     public RelayCommand SearchCommand { get; set; }
 
+    public Movie _movie { get; set; }
 
 
 
     public MainViewModel()
     {
-        _movieDataBase = new List<string>();
-
-        MyWindow = new();
-        MyWindow!.Loaded += Window_Loaded;
+        _MovieDataBase = new List<string>();
+        _movie = new Movie();
 
 
-        _movieDataBase = JsonSerializer.Deserialize<List<string>>(File.ReadAllText("../../../DataBase/MovieDataBase.json"))!;
+        _MovieDataBase = JsonSerializer.Deserialize<List<string>>(File.ReadAllText("../../../DataBase/MovieDataBase.json"))!;
 
         SearchCommand = new RelayCommand(async (o) =>
         {
@@ -48,7 +44,7 @@ public class MainViewModel : BaseViewModel
                 return;
             }
 
-            jsonStr = await httpClient.GetStringAsync($@"http://www.omdbapi.com/?apikey=82bcd4c7&t={TextBox_Search.Text}");
+            jsonStr = await HttpClient.GetStringAsync($@"http://www.omdbapi.com/?apikey=82bcd4c7&t={TextBox_Search.Text}");
 
             if (!jsonStr.Contains("Error"))
             {
@@ -59,18 +55,13 @@ public class MainViewModel : BaseViewModel
                 ucVm.Movie = movie;
                 uc.DataContext = ucVm;
 
-                uniformGrid!.Children.Add(uc);
+                _movie = movie;
 
+                UniformGrid!.Children.Add(uc);
 
-                MoreInformationAboutTheFilm more = new();
-                var moreVm = new AboutTheFilmViewModel();
-                moreVm.Movie = movie;
-                more.DataContext = moreVm;
-
-                more.ShowDialog();
-
-                _movieDataBase!.Add(movie?.Title!);
-                string str = JsonSerializer.Serialize(_movieDataBase);
+                uc.MouseDoubleClick += Uc_MouseDoubleClick;
+                _MovieDataBase!.Add(movie?.Title!);
+                string str = JsonSerializer.Serialize(_MovieDataBase);
                 File.WriteAllText("../../../DataBase/MovieDataBase.json", str);
                 return;
             }
@@ -82,22 +73,13 @@ public class MainViewModel : BaseViewModel
 
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private void Uc_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        foreach (var m in _movieDataBase)
-        {
-            jsonStr = httpClient.GetStringAsync($"http://www.omdbapi.com/?apikey=82bcd4c7&t={m}&plot=full").Result;
+        MoreInformationAboutTheFilm more = new();
+        var moreVm = new AboutTheFilmViewModel();
+        moreVm.Movie = _movie;
+        more.DataContext = moreVm;
 
-            if (!jsonStr.Contains("Error"))
-            {
-                var movie = JsonSerializer.Deserialize<Movie>(jsonStr);
-                var ucVm = new UCViewModel();
-                ucVm.Movie = movie;
-                var uc = new UserControl_Movie();
-
-                uc.DataContext = ucVm;
-                uniformGrid.Children.Add(uc);
-            }
-        }
+        more.ShowDialog();
     }
 }

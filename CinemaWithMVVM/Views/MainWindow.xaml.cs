@@ -9,8 +9,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         var vm = new MainViewModel();
-        vm.uniformGrid = wrapPanel;
-        //    vm.MyWindow = Window;
+        vm.UniformGrid = wrapPanel;
         this.DataContext = vm;
     }
 }
