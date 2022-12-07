@@ -68,6 +68,13 @@
                     <TextBox Grid.Column="0"
                              Name="myTextBox"
                              Style="{StaticResource TextBoxStyle}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter"
+                                        Command="{Binding KeyDownCommand}"
+                                        CommandParameter="{Binding ElementName=myTextBox}">
+                                
+                            </KeyBinding>
+                        </TextBox.InputBindings>
                     </TextBox>
                 </Grid>
             </Grid>
