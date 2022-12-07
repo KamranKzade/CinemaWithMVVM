@@ -1,5 +1,6 @@
 ﻿using CinemaWithMVVM.Commands;
 using CinemaWithMVVM.Models;
+using CinemaWithMVVM.Views;
 using CinemaWithMVVM.Views.UserControls;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ public class MainViewModel : BaseViewModel
 
     public UniformGrid uniformGrid { get; set; }
 
-    //public Window MyWindow { get; set; }
+    public Window MyWindow { get; set; }
     public RelayCommand SearchCommand { get; set; }
 
 
@@ -31,10 +32,11 @@ public class MainViewModel : BaseViewModel
     {
         _movieDataBase = new List<string>();
 
+        MyWindow = new();
+        MyWindow!.Loaded += Window_Loaded;
 
 
-      //  _movieDataBase = JsonSerializer.Deserialize<List<string>>(File.ReadAllText("../../../DataBase/MovieDataBase.json"))!;
-
+        _movieDataBase = JsonSerializer.Deserialize<List<string>>(File.ReadAllText("../../../DataBase/MovieDataBase.json"))!;
 
         SearchCommand = new RelayCommand(async (o) =>
         {
@@ -59,8 +61,13 @@ public class MainViewModel : BaseViewModel
 
                 uniformGrid!.Children.Add(uc);
 
-                // MoreInformationAboutTheFilm more = new(movie);
-                // more.ShowDialog();
+
+                MoreInformationAboutTheFilm more = new();
+                var moreVm = new AboutTheFilmViewModel();
+                moreVm.Movie = movie;
+                more.DataContext = moreVm;
+
+                more.ShowDialog();
 
                 _movieDataBase!.Add(movie?.Title!);
                 string str = JsonSerializer.Serialize(_movieDataBase);
@@ -73,7 +80,6 @@ public class MainViewModel : BaseViewModel
 
         });
 
-        // MyWindow!.Loaded += Window_Loaded;
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
