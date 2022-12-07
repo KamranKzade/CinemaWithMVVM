@@ -19,9 +19,12 @@ public class MainViewModel : BaseViewModel
     string jsonStr;
     private List<string> _MovieDataBase;
     HttpClient HttpClient = new HttpClient();
-    
+
     public RelayCommand SearchCommand { get; set; }
     public RelayCommand KeyDownCommand { get; set; }
+
+    public UniformGrid uniform { get; set; }
+
 
     public Movie _movie { get; set; }
 
@@ -36,7 +39,7 @@ public class MainViewModel : BaseViewModel
         _MovieDataBase = JsonSerializer.Deserialize<List<string>>(File.ReadAllText("../../../DataBase/MovieDataBase.json"))!;
 
 
-
+        uniform = uniformGrid;
         foreach (var m in _MovieDataBase)
         {
             jsonStr = HttpClient.GetStringAsync($"http://www.omdbapi.com/?apikey=82bcd4c7&t={m}&plot=full").Result;
@@ -48,7 +51,12 @@ public class MainViewModel : BaseViewModel
                 var ucVm = new UCViewModel();
                 ucVm.Movie = movie;
                 uc.DataContext = ucVm;
-                uniformGrid.Children.Add(uc);
+
+                // _movie = ucVm.Movie!;
+
+                uc.MouseDoubleClick += Uc_MouseDoubleClick;
+
+                uniformGrid!.Children.Add(uc);
             }
         }
 
@@ -68,14 +76,25 @@ public class MainViewModel : BaseViewModel
 
     private void Uc_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
+        var uc = sender as UserControl_Movie;
+        var ucVm = new UCViewModel();
+
+        // Casting
+        var something = uc!.DataContext;
+        var cinema = something as UCViewModel;
+        ucVm.Movie = cinema!.Movie;
+
+        uc!.DataContext = ucVm;
+
+
         MoreInformationAboutTheFilm more = new();
         var moreVm = new AboutTheFilmViewModel();
-        moreVm.Movie = _movie;
+        moreVm.Movie = ucVm.Movie;
         more.DataContext = moreVm;
 
         more.ShowDialog();
     }
-    
+
     private async Task Search_Film(UniformGrid uniformGrid, object o)
     {
         var TextBox_Search = o as TextBox;
@@ -102,6 +121,7 @@ public class MainViewModel : BaseViewModel
             uniformGrid!.Children.Add(uc);
 
             uc.MouseDoubleClick += Uc_MouseDoubleClick;
+
             _MovieDataBase!.Add(movie?.Title!);
             string str = JsonSerializer.Serialize(_MovieDataBase);
             File.WriteAllText("../../../DataBase/MovieDataBase.json", str);
