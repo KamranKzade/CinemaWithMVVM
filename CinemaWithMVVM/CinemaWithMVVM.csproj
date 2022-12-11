@@ -10,11 +10,13 @@
   <ItemGroup>
     <None Remove="Views\film.png" />
     <None Remove="Views\search.png" />
+    <None Remove="Views\UserControls\star.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\search.png" />
     <Resource Include="Images\film.png" />
+    <Resource Include="Images\star.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
 ﻿using CinemaWithMVVM.Models;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace CinemaWithMVVM.ViewModels;
 
@@ -15,8 +17,10 @@ public class Uc_AboutViewModel : BaseViewModel
         }
     }
 
+    public WrapPanel wrapPanel { get; set; }
+
     public Uc_AboutViewModel()
     {
-
+        wrapPanel = new ();
     }
 }

@@ -145,6 +145,23 @@
                        Foreground="{StaticResource foreColorTitle2}"/>
         </StackPanel>
 
+        <!-- Rating -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Rating: "
+                   Grid.Column="0"
+                   FontSize="{StaticResource labelSize}"
+                   FontWeight="Medium"
+                   Foreground="{StaticResource foreColorTitle}"/>
+            <WrapPanel Grid.Column="1"
+                         Orientation="Horizontal"
+                         Name="wrapPanel">
+
+            </WrapPanel>
+        </Grid>
 
     </StackPanel>
 </UserControl>
