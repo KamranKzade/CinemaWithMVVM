@@ -10,149 +10,33 @@
         ResizeMode="NoResize"
         Height="650"
         Width="800">
-    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+    <Grid Background="{StaticResource backColor_about}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Style="{StaticResource MenuItemStyle}"
+                      Header="Information about the Film" 
+                      Command="{Binding AboutFilmCommand}"
+                      CommandParameter="{Binding ElementName=scrollbar}">
+            </MenuItem>
 
-        <StackPanel Background="{StaticResource backColor}">
-
-            <!-- Poster -->
-            <Canvas Width="350" Height="250">
-                <Image Stretch="Fill"
-                   Source="{Binding Movie.Poster, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"    
-                   Width="350" 
-                   Height="250">
-                    <Image.Effect>
-                        <BlurEffect Radius="15" KernelType="Gaussian"></BlurEffect>
-                    </Image.Effect>
-                </Image>
-                <Image Canvas.Left="25"  
-                   Panel.ZIndex="10"
-                   Canvas.Top="15"
-                   Source="{Binding Movie.Poster, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                   Width="300" 
-                   Height="220"></Image>
-            </Canvas>
-
-            <!-- Title -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Title: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource  foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Rated -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Rated: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Rated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Director -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Director: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Language -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Language: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Country -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Country: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Website -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Website: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Website, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Type -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Type: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Writer -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Writer: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Writer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Production -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Production: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Production, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
-
-            <!-- Awards -->
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Awards: "
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle}"/>
-                <Label Content="{Binding Movie.Awards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       FontSize="{StaticResource labelSize}"
-                       FontWeight="Medium"
-                       Foreground="{StaticResource foreColorTitle2}"/>
-            </StackPanel>
+            <MenuItem Style="{StaticResource MenuItemStyle}"
+                      Header="Youtube" 
+                      Command="{Binding YoutubeCommand}"
+                      Margin="5 0 0 0"
+                      CommandParameter="{Binding ElementName=scrollbar}">
+            </MenuItem>
+        </Menu>
 
 
-        </StackPanel>
-    </ScrollViewer>
+        <ScrollViewer Grid.Row="1"
+                      Background="{StaticResource backColor_about}"
+                      Name="scrollbar"
+                      HorizontalScrollBarVisibility="Auto">
+            
+        </ScrollViewer>
+        
+    </Grid>
 </Window>

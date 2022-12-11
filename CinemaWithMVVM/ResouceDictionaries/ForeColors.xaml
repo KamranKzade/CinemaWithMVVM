@@ -3,5 +3,6 @@
 
     <SolidColorBrush  x:Key="foreColorTitle" Color="#0599D8"/>
     <SolidColorBrush  x:Key="foreColorTitle2" Color="WhiteSmoke"/>
+    <SolidColorBrush  x:Key="foreColorMenu" Color="#0F7173"/>
 
 </ResourceDictionary>

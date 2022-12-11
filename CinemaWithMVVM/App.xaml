@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="ResouceDictionaries/LabelTitleStyle.xaml"/>
                 <ResourceDictionary Source="ResouceDictionaries/SimpleLabelStyle.xaml"/>
                 <ResourceDictionary Source="ResouceDictionaries/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="ResouceDictionaries/MenuItemStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

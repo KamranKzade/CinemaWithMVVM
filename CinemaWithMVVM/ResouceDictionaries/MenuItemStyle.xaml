@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+        <Setter Property="Background" Value="{StaticResource menuItme_backColor}"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="FontFamily" Value="Comic Sans Ms"/>
+        <Setter Property="BorderBrush" Value="{StaticResource backColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource foreColorMenu}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+    </Style>
+
+</ResourceDictionary>
