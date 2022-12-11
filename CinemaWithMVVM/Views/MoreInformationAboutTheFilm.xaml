@@ -28,6 +28,13 @@
                       Margin="5 0 0 0"
                       CommandParameter="{Binding ElementName=scrollbar}">
             </MenuItem>
+            
+            <MenuItem Style="{StaticResource MenuItemStyle}"
+                      Header="Comment" 
+                      Command="{Binding CommentCommand}"
+                      Margin="5 0 0 0"
+                      CommandParameter="{Binding ElementName=scrollbar}">
+            </MenuItem>
         </Menu>
 
 

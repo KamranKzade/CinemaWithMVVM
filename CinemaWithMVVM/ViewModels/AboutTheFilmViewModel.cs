@@ -11,6 +11,7 @@ public class AboutTheFilmViewModel : BaseViewModel
 
     public RelayCommand AboutFilmCommand { get; set; }
     public RelayCommand YoutubeCommand { get; set; }
+    public RelayCommand CommentCommand { get; set; }
 
 
     public Movie? Movie
@@ -25,7 +26,7 @@ public class AboutTheFilmViewModel : BaseViewModel
 
     public AboutTheFilmViewModel()
     {
-        AboutFilmCommand = new RelayCommand((o) =>
+       AboutFilmCommand = new RelayCommand((o) =>
         {
             var scrollViewer = o as ScrollViewer;
             scrollViewer!.Content = string.Empty;
@@ -38,7 +39,7 @@ public class AboutTheFilmViewModel : BaseViewModel
             //// Add Stars 
             vm.wrapPanel = uc.wrapPanel;
 
-            var str = vm!.Movie?.Ratings[0].Value!.Substring(0, 3);
+            var str = vm!.Movie?.Ratings![0].Value!.Substring(0, 3);
             double result = (double.Parse(str!) + 1) / 2;
             int count = (int)result;
             
@@ -63,6 +64,22 @@ public class AboutTheFilmViewModel : BaseViewModel
             webBrowser.Navigate($"https://www.youtube.com/results?search_query={Movie!.Title}+trailer");
             scrollViewer!.Content = webBrowser;
 
+        });
+
+        CommentCommand = new RelayCommand((o) =>
+        {
+            var scrollViewer = o as ScrollViewer;
+            scrollViewer!.Content = string.Empty;
+
+            Comment_UC comment = new Comment_UC();
+            var commentVm = new Comment_UCViewModel();
+            commentVm.Movie = movie;
+
+            comment.DataContext = commentVm;
+
+            Movie = commentVm.Movie;
+
+            scrollViewer.Content = comment;
         });
     }
 }

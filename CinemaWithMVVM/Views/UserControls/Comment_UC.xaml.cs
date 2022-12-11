@@ -1,13 +1,10 @@
 ﻿using System.Windows.Controls;
 
-
 namespace CinemaWithMVVM.Views.UserControls;
 
-
-
-public partial class Star_Uc : UserControl
+public partial class Comment_UC : UserControl
 {
-    public Star_Uc()
+    public Comment_UC()
     {
         InitializeComponent();
     }
